@@ -2,7 +2,6 @@ package service
 
 import (
 	"context"
-	"sync"
 
 	"github.com/reynaldineo/FP-PBKK-Golang/constant"
 	"github.com/reynaldineo/FP-PBKK-Golang/dto"
@@ -17,6 +16,7 @@ type (
 		RegisterUser(ctx context.Context, req dto.UserRegisterRequest) (dto.UserResponse, error)
 		VerifyUser(ctx context.Context, req dto.UserLoginRequest) (dto.UserLoginResponse, error)
 		GetUserByID(ctx context.Context, userId string) (dto.UserResponse, error)
+		DeleteByUserId(ctx context.Context, userId string) error
 	}
 
 	userService struct {
@@ -32,14 +32,7 @@ func NewUserService(userRepo repository.UserRepository, jwtService JWTService) U
 	}
 }
 
-var (
-	mu sync.Mutex
-)
-
 func (s *userService) RegisterUser(ctx context.Context, req dto.UserRegisterRequest) (dto.UserResponse, error) {
-	mu.Lock()
-	defer mu.Unlock()
-
 	_, isEmailExist, err := s.userRepo.GetUserByEmail(ctx, req.Email)
 	if err != nil && err != gorm.ErrRecordNotFound {
 		return dto.UserResponse{}, err
@@ -104,4 +97,17 @@ func (s *userService) GetUserByID(ctx context.Context, userId string) (dto.UserR
 		TelpNumber: user.TelpNumber,
 		Role:       string(user.Role),
 	}, nil
+}
+
+func (s *userService) DeleteByUserId(ctx context.Context, userId string) error {
+	_, err := s.userRepo.GetUserById(ctx, userId)
+	if err != nil {
+		return err
+	}
+
+	err = s.userRepo.DeleteByUserId(ctx, userId)
+	if err != nil {
+		return err
+	}
+	return nil
 }

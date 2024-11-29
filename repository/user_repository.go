@@ -12,6 +12,7 @@ type (
 		GetUserByEmail(ctx context.Context, email string) (entity.User, bool, error)
 		CreateUser(ctx context.Context, user entity.User) (entity.User, error)
 		GetUserById(ctx context.Context, userId string) (entity.User, error)
+		DeleteByUserId(ctx context.Context, userId string) error
 	}
 
 	userRepository struct {
@@ -46,4 +47,12 @@ func (r *userRepository) GetUserById(ctx context.Context, userId string) (entity
 		return entity.User{}, err
 	}
 	return user, nil
+}
+
+func (r *userRepository) DeleteByUserId(ctx context.Context, userId string) error {
+	var user entity.User
+	if err := r.db.Where("id = ?", userId).Delete(&user).Error; err != nil {
+		return err
+	}
+	return nil
 }

@@ -4,14 +4,17 @@ import "errors"
 
 const (
 	// Failed
-	MESSAGE_FAILED_CREATE_USER = "failed create user"
-	MESSAGE_FAILED_LOGIN       = "login failed"
-	MESSAGE_FAILED_GET_USER    = "failed get user"
+	MESSAGE_FAILED_CREATE_USER    = "failed create user"
+	MESSAGE_FAILED_LOGIN          = "login failed"
+	MESSAGE_FAILED_GET_USER       = "failed get user"
+	MESSAGE_FAILED_DELETE_USER    = "failed delete user"
+	MESSAGE_FAILED_USER_NOT_FOUND = "user not found"
 
 	// Success
 	MESSAGE_SUCCESS_REGISTER_USER = "success create user"
 	MESSAGE_SUCCESS_LOGIN         = "login success"
-	MESSAGE_SUCCESS_GET_USER      = "succes get user"
+	MESSAGE_SUCCESS_GET_USER      = "success get user"
+	MESSAGE_SUCCESS_DELETE_USER   = "success delete user"
 )
 
 var (
@@ -19,6 +22,7 @@ var (
 	ErrEmailNotFound     = errors.New("email not found")
 	ErrPasswordNotMatch  = errors.New("password not match")
 	ErrGetUserById       = errors.New("failed to get user by id")
+	ErrRoleNotAllowed    = errors.New("denied access for \"%v\" role")
 )
 
 type (

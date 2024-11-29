@@ -15,6 +15,7 @@ type (
 		Register(ctx *gin.Context)
 		Login(ctx *gin.Context)
 		GetMe(ctx *gin.Context)
+		DeleteByUserId(ctx *gin.Context)
 	}
 
 	userController struct {
@@ -77,5 +78,18 @@ func (c *userController) GetMe(ctx *gin.Context) {
 	}
 
 	resp := utils.BuildResponseSuccess(dto.MESSAGE_SUCCESS_GET_USER, user)
+	ctx.JSON(http.StatusOK, resp)
+}
+
+func (c *userController) DeleteByUserId(ctx *gin.Context) {
+	userId := ctx.Param("userId")
+
+	if err := c.userService.DeleteByUserId(ctx, userId); err != nil {
+		res := utils.BuildResponseFailed(dto.MESSAGE_FAILED_DELETE_USER, err.Error(), nil)
+		ctx.JSON(http.StatusInternalServerError, res)
+		return
+	}
+
+	resp := utils.BuildResponseSuccess(dto.MESSAGE_SUCCESS_DELETE_USER, nil)
 	ctx.JSON(http.StatusOK, resp)
 }

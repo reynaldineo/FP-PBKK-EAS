@@ -1,23 +1,72 @@
 [
-  {
-    "name": "admin",
-    "telp_number": "08123456789",
-    "email": "admin@gmail.com",
-    "password": "password123!",
-    "role": "admin"
-  },
-  {
-    "name": "user",
-    "telp_number": "08123456789",
-    "email": "user@gmail.com",
-    "password": "password123!",
-    "role": "user"
-  },
-  {
-    "name": "reynaldineo",
-    "telp_number": "082211221122",
-    "email": "reynaldineo@gmail.com",
-    "password": "password123!",
-    "role": "user"
-  }
+    {
+        "name": "admin",
+        "telp_number": "08123456789",
+        "email": "admin@gmail.com",
+        "password": "password123!",
+        "role": "admin"
+    },
+    {
+        "name": "user",
+        "telp_number": "08123456789",
+        "email": "user@gmail.com",
+        "password": "password123!",
+        "role": "user"
+    },
+    {
+        "name": "reynaldineo",
+        "telp_number": "082211221122",
+        "email": "reynaldineo@gmail.com",
+        "password": "password123!",
+        "role": "user"
+    },
+    {
+        "name": "john_doe",
+        "telp_number": "08123456780",
+        "email": "john_doe@gmail.com",
+        "password": "password123!",
+        "role": "user"
+    },
+    {
+        "name": "alice",
+        "telp_number": "08123456782",
+        "email": "alice@gmail.com",
+        "password": "password123!",
+        "role": "user"
+    },
+    {
+        "name": "bob",
+        "telp_number": "08123456783",
+        "email": "bob@gmail.com",
+        "password": "password123!",
+        "role": "user"
+    },
+    {
+        "name": "charlie",
+        "telp_number": "08123456784",
+        "email": "charlie@gmail.com",
+        "password": "password123!",
+        "role": "user"
+    },
+    {
+        "name": "dave",
+        "telp_number": "08123456785",
+        "email": "dave@gmail.com",
+        "password": "password123!",
+        "role": "user"
+    },
+    {
+        "name": "frank",
+        "telp_number": "08123456787",
+        "email": "frank@gmail.com",
+        "password": "password123!",
+        "role": "user"
+    },
+    {
+        "name": "grace",
+        "telp_number": "08123456788",
+        "email": "grace@gmail.com",
+        "password": "password123!",
+        "role": "user"
+    }
 ]
