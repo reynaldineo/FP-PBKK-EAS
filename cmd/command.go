@@ -13,6 +13,7 @@ func Commands(db *gorm.DB) {
 	seed := false
 	migrateFresh := false
 	uuid := false
+	enum := false
 
 	for _, arg := range os.Args[1:] {
 		if arg == "--migrate" {
@@ -27,6 +28,9 @@ func Commands(db *gorm.DB) {
 		}
 		if arg == "--uuid" {
 			uuid = true
+		}
+		if arg == "--enum" {
+			enum = true
 		}
 	}
 
@@ -72,4 +76,10 @@ func Commands(db *gorm.DB) {
 		}
 	}
 
+	if enum {
+		if err := migration.EnumMigration(db); err != nil {
+			log.Fatalf("error creating enum: %v", err)
+		}
+		log.Println("enum created successfully")
+	}
 }

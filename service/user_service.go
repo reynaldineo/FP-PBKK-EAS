@@ -67,7 +67,7 @@ func (s *userService) RegisterUser(ctx context.Context, req dto.UserRegisterRequ
 		Name:       userRes.Name,
 		Email:      userRes.Email,
 		TelpNumber: userRes.TelpNumber,
-		Role:       userRes.Role,
+		Role:       string(userRes.Role),
 	}, nil
 }
 
@@ -82,11 +82,11 @@ func (s *userService) VerifyUser(ctx context.Context, req dto.UserLoginRequest) 
 		return dto.UserLoginResponse{}, dto.ErrPasswordNotMatch
 	}
 
-	token := s.jwtService.GenerateToken(user.ID.String(), user.Role)
+	token := s.jwtService.GenerateToken(user.ID.String(), string(user.Role))
 
 	return dto.UserLoginResponse{
 		Token: token,
-		Role:  user.Role,
+		Role:  string(user.Role),
 	}, nil
 
 }
@@ -102,6 +102,6 @@ func (s *userService) GetUserByID(ctx context.Context, userId string) (dto.UserR
 		Name:       user.Name,
 		Email:      user.Email,
 		TelpNumber: user.TelpNumber,
-		Role:       user.Role,
+		Role:       string(user.Role),
 	}, nil
 }
