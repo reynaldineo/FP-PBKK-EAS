@@ -35,6 +35,7 @@ func (s *productService) AddProduct(ctx context.Context, req dto.ProductRequest)
 		Price:         req.Price,
 		StockQuantity: req.StockQuantity,
 		Category:      req.Category,
+		ImageUrl:      req.ImageUrl,
 	}
 
 	res, err := s.productRepo.AddProduct(ctx, product)
@@ -49,6 +50,7 @@ func (s *productService) AddProduct(ctx context.Context, req dto.ProductRequest)
 		Price:         res.Price,
 		StockQuantity: res.StockQuantity,
 		Category:      res.Category,
+		ImageUrl:      res.ImageUrl,
 	}, nil
 }
 
@@ -67,6 +69,7 @@ func (s *productService) GetAllProduct(ctx context.Context) ([]dto.ProductRespon
 			Price:         product.Price,
 			StockQuantity: product.StockQuantity,
 			Category:      product.Category,
+			ImageUrl:      product.ImageUrl,
 		})
 	}
 
@@ -86,6 +89,7 @@ func (s *productService) GetProductByID(ctx context.Context, id string) (dto.Pro
 		Price:         product.Price,
 		StockQuantity: product.StockQuantity,
 		Category:      product.Category,
+		ImageUrl:      product.ImageUrl,
 	}, nil
 }
 
@@ -96,6 +100,7 @@ func (s *productService) UpdateProduct(ctx context.Context, id string, req dto.P
 		Price:         req.Price,
 		StockQuantity: req.StockQuantity,
 		Category:      req.Category,
+		ImageUrl:      req.ImageUrl,
 	}
 
 	res, err := s.productRepo.UpdateProduct(ctx, id, product)
@@ -110,6 +115,7 @@ func (s *productService) UpdateProduct(ctx context.Context, id string, req dto.P
 		Price:         res.Price,
 		StockQuantity: res.StockQuantity,
 		Category:      res.Category,
+		ImageUrl:      res.ImageUrl,
 	}, nil
 }
 

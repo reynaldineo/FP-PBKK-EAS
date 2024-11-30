@@ -32,14 +32,17 @@ func main() {
 		//* == Repository ==
 		userRepository    repository.UserRepository    = repository.NewUserRepository(db)
 		productRepository repository.ProductRepository = repository.NewProductRepository(db)
+		cartRepository    repository.CartRepository    = repository.NewCartRepository(db)
 
 		//* == Service ==
 		userService    service.UserService    = service.NewUserService(userRepository, jwtService)
 		productService service.ProductService = service.NewProductService(productRepository)
+		cartService    service.CartService    = service.NewCartService(cartRepository)
 
 		//* == Controller ==
 		userController    controller.UserController    = controller.NewUserController(userService)
 		productController controller.ProductController = controller.NewProductController(productService)
+		cartController    controller.CartController    = controller.NewCartController(cartService)
 	)
 
 	server := gin.Default()
@@ -48,6 +51,7 @@ func main() {
 	//* == routes ==
 	routes.UserRoute(server, userController, jwtService)
 	routes.ProductRoute(server, productController, jwtService)
+	routes.CartRoute(server, cartController, jwtService)
 
 	server.Static("/assets", "./assets")
 	port := os.Getenv("PORT")

@@ -23,6 +23,7 @@ type (
 		Price         int    `json:"price" binding:"required"`
 		StockQuantity int    `json:"stock_quantity" binding:"required"`
 		Category      string `json:"category" binding:"required"`
+		ImageUrl      string `json:"image_url" binding:"required"`
 	}
 
 	ProductResponse struct {
@@ -32,5 +33,6 @@ type (
 		Price         int    `json:"price"`
 		StockQuantity int    `json:"stock_quantity"`
 		Category      string `json:"category"`
+		ImageUrl      string `json:"image_url"`
 	}
 )

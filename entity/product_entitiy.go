@@ -9,6 +9,7 @@ type Product struct {
 	Price         int       `json:"price"`
 	StockQuantity int       `json:"stock_quantity"`
 	Category      string    `json:"category"`
+	ImageUrl      string    `json:"image_url"`
 
 	Timestamp
 }
