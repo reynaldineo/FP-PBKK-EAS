@@ -22,8 +22,7 @@ func OnlyAllow(roles ...string) gin.HandlerFunc {
 		}
 
 		err := fmt.Sprintf(dto.ErrRoleNotAllowed.Error(), userRole)
-		response := utils.BuildResponseFailed(dto.MESSAGE_FAILED_VERIFY_TOKEN, err, nil)
+		response := utils.BuildResponseFailed(dto.MESSAGE_FAILED_UNAUTHORIZED, err, nil)
 		ctx.AbortWithStatusJSON(http.StatusUnauthorized, response)
-		return
 	}
 }

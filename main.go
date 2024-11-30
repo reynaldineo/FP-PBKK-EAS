@@ -30,13 +30,16 @@ func main() {
 		//* === Dependecy Injection Implementation ===
 
 		//* == Repository ==
-		userRepository repository.UserRepository = repository.NewUserRepository(db)
+		userRepository    repository.UserRepository    = repository.NewUserRepository(db)
+		productRepository repository.ProductRepository = repository.NewProductRepository(db)
 
 		//* == Service ==
-		userService service.UserService = service.NewUserService(userRepository, jwtService)
+		userService    service.UserService    = service.NewUserService(userRepository, jwtService)
+		productService service.ProductService = service.NewProductService(productRepository)
 
 		//* == Controller ==
-		userController controller.UserController = controller.NewUserController(userService)
+		userController    controller.UserController    = controller.NewUserController(userService)
+		productController controller.ProductController = controller.NewProductController(productService)
 	)
 
 	server := gin.Default()
@@ -44,6 +47,7 @@ func main() {
 
 	//* == routes ==
 	routes.UserRoute(server, userController, jwtService)
+	routes.ProductRoute(server, productController, jwtService)
 
 	server.Static("/assets", "./assets")
 	port := os.Getenv("PORT")

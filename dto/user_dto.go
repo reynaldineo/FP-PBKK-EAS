@@ -27,10 +27,10 @@ var (
 
 type (
 	UserRegisterRequest struct {
-		Name       string `json:"name"`
-		TelpNumber string `json:"telp_number"`
-		Email      string `json:"email"`
-		Password   string `json:"password"`
+		Name       string `json:"name" binding:"required"`
+		TelpNumber string `json:"telp_number" binding:"required"`
+		Email      string `json:"email" binding:"required"`
+		Password   string `json:"password" binding:"required"`
 	}
 
 	UserResponse struct {
