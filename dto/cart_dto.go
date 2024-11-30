@@ -34,6 +34,11 @@ type (
 	}
 
 	GetProductCartItemResponse struct {
+		CartId   string                    `json:"cart_id"`
+		Products []ProductCartItemResponse `json:"products"`
+	}
+
+	ProductCartItemResponse struct {
 		ID            string `json:"id"`
 		Name          string `json:"name"`
 		Description   string `json:"description"`

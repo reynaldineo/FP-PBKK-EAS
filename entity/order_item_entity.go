@@ -11,4 +11,6 @@ type OrderItem struct {
 
 	ProductId uuid.UUID
 	Product   *Product `gorm:"foreignKey:ProductId;references:ID;constraint:OnUpdate:CASCADE,OnDelete:CASCADE"`
+
+	Timestamp
 }

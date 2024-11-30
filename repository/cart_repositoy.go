@@ -9,13 +9,16 @@ import (
 
 type (
 	CartRepository interface {
-		GetCardByUserId(ctx context.Context, userId string) (entity.Cart, error)
+		GetCartByUserId(ctx context.Context, userId string) (entity.Cart, error)
 		CreateCart(ctx context.Context, cart entity.Cart) (entity.Cart, error)
 		AddCartItem(ctx context.Context, cartItem []entity.CartItem) ([]entity.CartItem, error)
 		GetCartItemByCardIdProductId(ctx context.Context, cartId string, productId string) (entity.CartItem, error)
 		UpdateCartItem(ctx context.Context, cartItem entity.CartItem) (entity.CartItem, error)
-		GetCartItemByCartId(ctx context.Context, cartId string) ([]entity.CartItem, error)
+		GetAllProductCartItemByCartId(ctx context.Context, cartId string) ([]entity.CartItem, error)
+		GetAllCartItemByCartId(ctx context.Context, cartId string) ([]entity.CartItem, error)
 		GetCartItemById(ctx context.Context, cartItemId string) (entity.CartItem, error)
+		UpdateCartById(ctx context.Context, id string, cart entity.Cart) (entity.Cart, error)
+		GetCartById(ctx context.Context, cartId string) (entity.Cart, error)
 	}
 
 	cartRepository struct {
@@ -29,9 +32,9 @@ func NewCartRepository(db *gorm.DB) CartRepository {
 	}
 }
 
-func (r *cartRepository) GetCardByUserId(ctx context.Context, userId string) (entity.Cart, error) {
+func (r *cartRepository) GetCartByUserId(ctx context.Context, userId string) (entity.Cart, error) {
 	var cart entity.Cart
-	err := r.db.WithContext(ctx).Where("user_id = ?", userId).Last(&cart).Error
+	err := r.db.WithContext(ctx).Where("user_id = ?", userId).Order("created_at DESC").First(&cart).Error
 	if err != nil {
 		return entity.Cart{}, err
 	}
@@ -76,7 +79,7 @@ func (r *cartRepository) UpdateCartItem(ctx context.Context, cartItem entity.Car
 	return cartItem, nil
 }
 
-func (r *cartRepository) GetCartItemByCartId(ctx context.Context, cartId string) ([]entity.CartItem, error) {
+func (r *cartRepository) GetAllProductCartItemByCartId(ctx context.Context, cartId string) ([]entity.CartItem, error) {
 	var cartItem []entity.CartItem
 
 	err := r.db.WithContext(ctx).
@@ -84,6 +87,17 @@ func (r *cartRepository) GetCartItemByCartId(ctx context.Context, cartId string)
 		Preload("Product").
 		Find(&cartItem).Error
 
+	if err != nil {
+		return []entity.CartItem{}, err
+	}
+
+	return cartItem, nil
+}
+
+func (r *cartRepository) GetAllCartItemByCartId(ctx context.Context, cartId string) ([]entity.CartItem, error) {
+	var cartItem []entity.CartItem
+
+	err := r.db.WithContext(ctx).Where("cart_id = ?", cartId).Find(&cartItem).Error
 	if err != nil {
 		return []entity.CartItem{}, err
 	}
@@ -99,4 +113,23 @@ func (r *cartRepository) GetCartItemById(ctx context.Context, cartItemId string)
 	}
 
 	return cartItem, nil
+}
+
+func (r *cartRepository) UpdateCartById(ctx context.Context, id string, cart entity.Cart) (entity.Cart, error) {
+	err := r.db.WithContext(ctx).Model(&cart).Where("id = ?", id).Updates(cart).Error
+	if err != nil {
+		return entity.Cart{}, err
+	}
+
+	return cart, nil
+}
+
+func (r *cartRepository) GetCartById(ctx context.Context, cartId string) (entity.Cart, error) {
+	var cart entity.Cart
+	err := r.db.WithContext(ctx).Where("id = ?", cartId).Last(&cart).Error
+	if err != nil {
+		return entity.Cart{}, err
+	}
+
+	return cart, nil
 }

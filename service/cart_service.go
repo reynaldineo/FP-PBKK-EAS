@@ -14,7 +14,7 @@ type (
 	CartService interface {
 		AddCartItem(ctx context.Context, req dto.AddCartItemRequest, userId string) (dto.AddCartItemResponse, error)
 		CreateCart(ctx context.Context, userId uuid.UUID) (entity.Cart, error)
-		GetMyCartItem(ctx context.Context, userId string) ([]dto.GetProductCartItemResponse, error)
+		GetMyCartItem(ctx context.Context, userId string) (dto.GetProductCartItemResponse, error)
 		UpdateCartItem(ctx context.Context, req dto.UpdateCartItemRequest, userId string, cartItemId string) (dto.AddCartItemResponse, error)
 	}
 
@@ -36,7 +36,7 @@ func (s *cartService) AddCartItem(ctx context.Context, req dto.AddCartItemReques
 	}
 
 	// get card to check the status
-	cart, err := s.cartRepo.GetCardByUserId(ctx, userId)
+	cart, err := s.cartRepo.GetCartByUserId(ctx, userId)
 	if err != nil && err != gorm.ErrRecordNotFound {
 		return dto.AddCartItemResponse{}, err
 	}
@@ -112,24 +112,29 @@ func (s *cartService) CreateCart(ctx context.Context, userId uuid.UUID) (entity.
 	return resCart, nil
 }
 
-func (s *cartService) GetMyCartItem(ctx context.Context, userId string) ([]dto.GetProductCartItemResponse, error) {
-	cart, err := s.cartRepo.GetCardByUserId(ctx, userId)
-	if err != nil {
-		return []dto.GetProductCartItemResponse{}, err
+func (s *cartService) GetMyCartItem(ctx context.Context, userId string) (dto.GetProductCartItemResponse, error) {
+	cart, err := s.cartRepo.GetCartByUserId(ctx, userId)
+	if err != nil && err != gorm.ErrRecordNotFound {
+		return dto.GetProductCartItemResponse{}, err
 	}
 
-	cartItems, err := s.cartRepo.GetCartItemByCartId(ctx, cart.ID.String())
-	if err != nil {
-		return []dto.GetProductCartItemResponse{}, err
+	// if the last cart is already checkout or cart not found, return empty response
+	if cart.IsCheckout || err == gorm.ErrRecordNotFound {
+		return dto.GetProductCartItemResponse{}, nil
 	}
 
-	var allProductResp []dto.GetProductCartItemResponse
+	cartItems, err := s.cartRepo.GetAllProductCartItemByCartId(ctx, cart.ID.String())
+	if err != nil {
+		return dto.GetProductCartItemResponse{}, err
+	}
+
+	var productCartItem []dto.ProductCartItemResponse
 	for _, item := range cartItems {
 		if item.Quantity == 0 {
 			continue
 		}
 
-		allProductResp = append(allProductResp, dto.GetProductCartItemResponse{
+		productCartItem = append(productCartItem, dto.ProductCartItemResponse{
 			ID:            item.Product.ID.String(),
 			Name:          item.Product.Name,
 			Price:         item.Product.Price,
@@ -141,7 +146,11 @@ func (s *cartService) GetMyCartItem(ctx context.Context, userId string) ([]dto.G
 		})
 	}
 
-	return allProductResp, nil
+	var resp dto.GetProductCartItemResponse
+	resp.CartId = cart.ID.String()
+	resp.Products = productCartItem
+
+	return resp, nil
 }
 
 func (s *cartService) UpdateCartItem(ctx context.Context, req dto.UpdateCartItemRequest, userId string, cartItemId string) (dto.AddCartItemResponse, error) {
