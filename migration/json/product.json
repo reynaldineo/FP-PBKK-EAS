@@ -1,0 +1,79 @@
+[
+    {
+        "name": "Wireless Mouse",
+        "description": "A high-precision wireless mouse with ergonomic design.",
+        "price": 26,
+        "stock_quantity": 150,
+        "category": "Electronics"
+    },
+    {
+        "name": "Bluetooth Headphones",
+        "description": "Noise-cancelling over-ear headphones with long battery life.",
+        "price": 90,
+        "stock_quantity": 75,
+        "category": "Electronics"
+    },
+    {
+        "name": "Gaming Keyboard",
+        "description": "Mechanical keyboard with customizable RGB lighting.",
+        "price": 60,
+        "stock_quantity": 200,
+        "category": "Electronics"
+    },
+    {
+        "name": "Smartphone Stand",
+        "description": "Adjustable stand for smartphones and tablets.",
+        "price": 16,
+        "stock_quantity": 300,
+        "category": "Accessories"
+    },
+    {
+        "name": "USB-C Hub",
+        "description": "Multi-port USB-C hub with HDMI and Ethernet ports.",
+        "price": 46,
+        "stock_quantity": 120,
+        "category": "Electronics"
+    },
+    {
+        "name": "Portable Charger",
+        "description": "High-capacity portable charger with fast charging support.",
+        "price": 40,
+        "stock_quantity": 180,
+        "category": "Accessories"
+    },
+    {
+        "name": "Fitness Tracker",
+        "description": "Waterproof fitness tracker with heart rate monitor.",
+        "price": 50,
+        "stock_quantity": 90,
+        "category": "Wearables"
+    },
+    {
+        "name": "Smart Light Bulb",
+        "description": "Wi-Fi enabled smart light bulb with color changing feature.",
+        "price": 20,
+        "stock_quantity": 250,
+        "category": "Home Automation"
+    },
+    {
+        "name": "Laptop Sleeve",
+        "description": "Protective laptop sleeve with soft interior lining.",
+        "price": 30,
+        "stock_quantity": 130,
+        "category": "Accessories"
+    },
+    {
+        "name": "Wireless Charger",
+        "description": "Fast wireless charger compatible with all Qi-enabled devices.",
+        "price": 25,
+        "stock_quantity": 220,
+        "category": "Electronics"
+    },
+    {
+        "name": "Smart Thermostat",
+        "description": "Programmable smart thermostat with remote control.",
+        "price": 130,
+        "stock_quantity": 60,
+        "category": "Home Automation"
+    }
+]

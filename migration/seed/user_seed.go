@@ -12,10 +12,10 @@ import (
 
 func ListUserSeeder(db *gorm.DB) error {
 	jsonFile, err := os.Open("./migration/json/users.json")
-
 	if err != nil {
 		return err
 	}
+	defer jsonFile.Close()
 
 	jsonData, err := io.ReadAll(jsonFile)
 	if err != nil {

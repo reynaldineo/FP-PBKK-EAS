@@ -8,11 +8,11 @@ import (
 
 type User struct {
 	ID         uuid.UUID `gorm:"type:uuid;primary_key;default:uuid_generate_v4()" json:"id"`
-	Name       string
-	TelpNumber string
-	Email      string
-	Password   string
-	Role       string `gorm:"type:role_enum;default:'user'"`
+	Name       string    `json:"name"`
+	TelpNumber string    `json:"telp_number"`
+	Email      string    `json:"email"`
+	Password   string    `json:"password"`
+	Role       string    `gorm:"type:role_enum;default:'user'" json:"role"`
 
 	Timestamp
 }
