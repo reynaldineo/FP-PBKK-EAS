@@ -2,10 +2,13 @@
 
 import { useState } from 'react';
 
+import withAuth from '@/components/hoc/withAuth';
+
 import ProductTable from '../components/ProductTable';
 import ProductFormModal from './AddProductModal';
 
-export default function AdminProductPage() {
+export default withAuth(AdminProductPage, 'admin');
+function AdminProductPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (

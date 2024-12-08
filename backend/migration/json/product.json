@@ -6,7 +6,7 @@
         "price": 26,
         "stock_quantity": 150,
         "category": "Electronics",
-        "image_url": "https://dummyimage.com/600x400/000/fff&text=Wireless+Mouse"
+        "image_url": "https://via.placeholder.com/600x400.png?text=Wireless+Mouse"
     },
     {
         "id": "2bac231d-083e-4004-8fcf-07a2ba7e5b88",
@@ -15,7 +15,7 @@
         "price": 90,
         "stock_quantity": 75,
         "category": "Electronics",
-        "image_url": "https://dummyimage.com/600x400/000/fff&text=Bluetooth+Headphones"
+        "image_url": "https://via.placeholder.com/600x400.png?text=Bluetooth+Headphones"
     },
     {
         "name": "Gaming Keyboard",
@@ -23,7 +23,7 @@
         "price": 60,
         "stock_quantity": 200,
         "category": "Electronics",
-        "image_url": "https://dummyimage.com/600x400/000/fff&text=Gaming+Keyboard"
+        "image_url": "https://via.placeholder.com/600x400.png?text=Gaming+Keyboard"
     },
     {
         "name": "Smartphone Stand",
@@ -31,7 +31,7 @@
         "price": 16,
         "stock_quantity": 300,
         "category": "Accessories",
-        "image_url": "https://dummyimage.com/600x400/000/fff&text=Smartphone+Stand"
+        "image_url": "https://via.placeholder.com/600x400.png?text=Smartphone+Stand"
     },
     {
         "name": "USB-C Hub",
@@ -39,7 +39,7 @@
         "price": 46,
         "stock_quantity": 120,
         "category": "Electronics",
-        "image_url": "https://dummyimage.com/600x400/000/fff&text=USB-C+Hub"
+        "image_url": "https://via.placeholder.com/600x400.png?text=USB-C+Hub"
     },
     {
         "name": "Portable Charger",
@@ -47,7 +47,7 @@
         "price": 40,
         "stock_quantity": 180,
         "category": "Accessories",
-        "image_url": "https://dummyimage.com/600x400/000/fff&text=Portable+Charger"
+        "image_url": "https://via.placeholder.com/600x400.png?text=Portable+Charger"
     },
     {
         "name": "Fitness Tracker",
@@ -55,7 +55,7 @@
         "price": 50,
         "stock_quantity": 90,
         "category": "Wearables",
-        "image_url": "https://dummyimage.com/600x400/000/fff&text=Fitness+Tracker"
+        "image_url": "https://via.placeholder.com/600x400.png?text=Fitness+Tracker"
     },
     {
         "name": "Smart Light Bulb",
@@ -63,7 +63,7 @@
         "price": 20,
         "stock_quantity": 250,
         "category": "Home Automation",
-        "image_url": "https://dummyimage.com/600x400/000/fff&text=Smart+Light+Bulb"
+        "image_url": "https://via.placeholder.com/600x400.png?text=Smart+Light+Bulb"
     },
     {
         "name": "Laptop Sleeve",
@@ -71,7 +71,7 @@
         "price": 30,
         "stock_quantity": 130,
         "category": "Accessories",
-        "image_url": "https://dummyimage.com/600x400/000/fff&text=Laptop+Sleeve"
+        "image_url": "https://via.placeholder.com/600x400.png?text=Laptop+Sleeve"
     },
     {
         "name": "Wireless Charger",
@@ -79,7 +79,7 @@
         "price": 25,
         "stock_quantity": 220,
         "category": "Electronics",
-        "image_url": "https://dummyimage.com/600x400/000/fff&text=Wireless+Charger"
+        "image_url": "https://via.placeholder.com/600x400.png?text=Wireless+Charger"
     },
     {
         "name": "Smart Thermostat",
@@ -87,6 +87,6 @@
         "price": 130,
         "stock_quantity": 60,
         "category": "Home Automation",
-        "image_url": "https://dummyimage.com/600x400/000/fff&text=Smart+Thermostat"
+        "image_url": "https://via.placeholder.com/600x400.png?text=Smart+Thermostat"
     }
 ]

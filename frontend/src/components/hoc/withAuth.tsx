@@ -19,8 +19,8 @@ export interface WithAuthProps {
   user: User;
 }
 
-const USER_ROUTE = '/product';
-const ADMIN_ROUTE = '/admin';
+const USER_ROUTE = '/';
+const ADMIN_ROUTE = '/admin/product';
 const LOGIN_ROUTE = '/login';
 
 export enum RouteRole {
