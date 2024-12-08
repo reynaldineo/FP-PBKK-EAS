@@ -107,7 +107,7 @@ func (r *cartRepository) GetAllCartItemByCartId(ctx context.Context, cartId stri
 
 func (r *cartRepository) GetCartItemById(ctx context.Context, cartItemId string) (entity.CartItem, error) {
 	var cartItem entity.CartItem
-	err := r.db.WithContext(ctx).Where("id = ?", cartItemId).Last(&cartItem).Error
+	err := r.db.WithContext(ctx).Where("product_id = ?", cartItemId).Last(&cartItem).Error
 	if err != nil {
 		return entity.CartItem{}, err
 	}
