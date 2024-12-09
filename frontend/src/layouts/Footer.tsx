@@ -9,16 +9,16 @@ export default function Footer() {
           <div className='mb-6 md:mb-0'>
             <Link href='https://flowbite.com/'>
               <div className='flex items-center'>
-                <Image
-                  src='https://flowbite.com/docs/images/logo.svg'
-                  alt='FlowBite Logo'
-                  height={32}
-                  width={32}
-                  className='me-3 h-8'
-                />
-                <span className='self-center whitespace-nowrap text-2xl font-semibold dark:text-white'>
-                  Flowbite
-                </span>
+                <div className='flex items-center text-2xl font-semibold text-gray-900 dark:text-white'>
+                  <Image
+                    className='mr-2 h-8 w-8'
+                    src='/images/logo-its.png'
+                    alt='logo'
+                    width={800}
+                    height={300}
+                  />
+                  TokoITS
+                </div>
               </div>
             </Link>
           </div>
