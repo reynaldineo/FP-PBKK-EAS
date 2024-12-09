@@ -6,6 +6,7 @@ import withAuth from '@/components/hoc/withAuth';
 import Loading from '@/components/Loading';
 import Layout from '@/layouts/Layout';
 
+import AddToOrderModal from './components/AddToOrderModal';
 import CartProduct from './components/CartProduct';
 import useGetAllMyCartProduct from './hooks/useGetAllMyCartProduct';
 
@@ -71,23 +72,27 @@ function CartPage() {
                         </dd>
                       </dl>
 
-                      <dl className='flex items-center justify-between gap-4'>
-                        <dt className='text-base font-normal text-gray-500 dark:text-gray-400'>
-                          Savings
-                        </dt>
-                        <dd className='text-base font-medium text-green-600'>
-                          -${discountPrice}
-                        </dd>
-                      </dl>
+                      {originalPrice > 0 && (
+                        <>
+                          <dl className='flex items-center justify-between gap-4'>
+                            <dt className='text-base font-normal text-gray-500 dark:text-gray-400'>
+                              Savings
+                            </dt>
+                            <dd className='text-base font-medium text-green-600'>
+                              -${discountPrice}
+                            </dd>
+                          </dl>
 
-                      <dl className='flex items-center justify-between gap-4'>
-                        <dt className='text-base font-normal text-gray-500 dark:text-gray-400'>
-                          Tax
-                        </dt>
-                        <dd className='text-base font-medium text-gray-900 dark:text-white'>
-                          ${taxPrice}
-                        </dd>
-                      </dl>
+                          <dl className='flex items-center justify-between gap-4'>
+                            <dt className='text-base font-normal text-gray-500 dark:text-gray-400'>
+                              Tax
+                            </dt>
+                            <dd className='text-base font-medium text-gray-900 dark:text-white'>
+                              ${taxPrice}
+                            </dd>
+                          </dl>
+                        </>
+                      )}
                     </div>
 
                     <dl className='flex items-center justify-between gap-4 border-t border-gray-200 pt-2 dark:border-gray-700'>
@@ -95,17 +100,14 @@ function CartPage() {
                         Total
                       </dt>
                       <dd className='text-base font-bold text-gray-900 dark:text-white'>
-                        ${totalPrice}
+                        ${originalPrice > 0 ? totalPrice : 0}
                       </dd>
                     </dl>
                   </div>
 
-                  <Link
-                    href='#'
-                    className='flex w-full items-center justify-center rounded-lg bg-primary-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800'
-                  >
-                    Proceed to Checkout
-                  </Link>
+                  {data?.data.cart_id && (
+                    <AddToOrderModal cartId={data.data.cart_id} />
+                  )}
 
                   <div className='flex items-center justify-center gap-2'>
                     <span className='text-sm font-normal text-gray-500 dark:text-gray-400'>
