@@ -3,6 +3,7 @@
 **Group Members:**
 
 -   **Reynaldi Neo Ramadhani** | 5025221265
+-   **Izzat Aji Androfaza** | 5025221245
 
 ## 📄 API Documentation
 
