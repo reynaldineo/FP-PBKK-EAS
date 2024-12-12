@@ -1,6 +1,6 @@
 'use client';
 import Link from 'next/link';
-import { useMemo } from 'react';
+import { useState, useMemo } from 'react';
 
 import withAuth from '@/components/hoc/withAuth';
 import Loading from '@/components/Loading';
@@ -13,24 +13,52 @@ import useGetAllMyCartProduct from './hooks/useGetAllMyCartProduct';
 export default withAuth(CartPage, 'user');
 function CartPage() {
   const { data, isPending } = useGetAllMyCartProduct();
+  const [cartProducts, setCartProducts] = useState(data?.data.products || []);
 
-  const cartProducts = data?.data.products;
-
-  if (isPending) {
-    <Loading />;
-  }
+  const isCartEmpty = cartProducts.length === 0; // Check if cart is empty
 
   const taxPrice = 10;
   const discountPrice = 39;
+
   const originalPrice = useMemo(() => {
     return (
       cartProducts?.reduce(
         (total, product) => total + product.price * product.buy_quantity,
-        0,
+        0
       ) ?? 0
     );
   }, [cartProducts]);
+
   const totalPrice = originalPrice + taxPrice - discountPrice;
+
+  // Handlers for increment, decrement, and remove
+  const handleIncrement = (id: string) => {
+    setCartProducts((prev) =>
+      prev.map((product) =>
+        product.id === id
+          ? { ...product, buy_quantity: product.buy_quantity + 1 }
+          : product
+      )
+    );
+  };
+
+  const handleDecrement = (id: string) => {
+    setCartProducts((prev) =>
+      prev.map((product) =>
+        product.id === id && product.buy_quantity > 1
+          ? { ...product, buy_quantity: product.buy_quantity - 1 }
+          : product
+      )
+    );
+  };
+
+  const handleRemove = (id: string) => {
+    setCartProducts((prev) => prev.filter((product) => product.id !== id));
+  };
+
+  if (isPending) {
+    return <Loading />;
+  }
 
   return (
     <Layout withFooter withNavbar>
@@ -43,9 +71,15 @@ function CartPage() {
           <div className='mt-6 sm:mt-8 md:gap-6 lg:flex lg:items-start xl:gap-8'>
             <div className='mx-auto flex w-full flex-none flex-col gap-8 lg:max-w-4xl lg:flex-row xl:max-w-6xl'>
               <div className='space-y-6'>
-                {cartProducts ? (
+                {cartProducts.length > 0 ? (
                   cartProducts.map((product) => (
-                    <CartProduct product={product} key={product.id} />
+                    <CartProduct
+                      product={product}
+                      key={product.id}
+                      onIncrement={handleIncrement}
+                      onDecrement={handleDecrement}
+                      onRemove={handleRemove}
+                    />
                   ))
                 ) : (
                   <div className='text-center text-gray-500 dark:text-gray-400 lg:px-52'>
@@ -105,36 +139,31 @@ function CartPage() {
                     </dl>
                   </div>
 
-                  {data?.data.cart_id && (
+                  {/* Only show Proceed to Checkout if cart is not empty */}
+                  {/* Kondisi untuk tombol Proceed to Checkout */}
+                  {!isCartEmpty && data?.data.cart_id ? (
                     <AddToOrderModal cartId={data.data.cart_id} />
+                  ) : (
+                    <div className='text-center'>
+                      <p className='text-gray-500 dark:text-gray-400'>
+                        Your cart is empty. Please add products.
+                      </p>
+                    </div>
                   )}
 
                   <div className='flex items-center justify-center gap-2'>
-                    <span className='text-sm font-normal text-gray-500 dark:text-gray-400'>
-                      {' '}
-                      or{' '}
-                    </span>
-                    <Link
-                      href='/'
-                      className='inline-flex items-center gap-2 text-sm font-medium text-primary-700 underline hover:no-underline dark:text-primary-500'
-                    >
-                      Continue Shopping
-                      <svg
-                        className='h-5 w-5'
-                        aria-hidden='true'
-                        xmlns='http://www.w3.org/2000/svg'
-                        fill='none'
-                        viewBox='0 0 24 24'
+                    {isCartEmpty ? (
+                      <Link
+                        href='/'
+                        className='inline-flex items-center gap-2 text-sm font-medium text-primary-700 underline hover:no-underline dark:text-primary-500'
                       >
-                        <path
-                          stroke='currentColor'
-                          strokeLinecap='round'
-                          strokeLinejoin='round'
-                          strokeWidth='2'
-                          d='M19 12H5m14 0-4 4m4-4-4-4'
-                        />
-                      </svg>
-                    </Link>
+                        Continue Shopping
+                      </Link>
+                    ) : (
+                      <p className='text-sm font-normal text-gray-500 dark:text-gray-400'>
+                        Proceed to checkout or continue shopping.
+                      </p>
+                    )}
                   </div>
                 </div>
               </div>
