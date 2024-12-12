@@ -5,6 +5,7 @@ export interface OrderItemProps {
   date: string;
   price: string;
   status: 'pending' | 'paid' | 'sent' | 'done';
+  onCancel: (orderId: string) => void; // Tambahkan prop baru
 }
 
 const OrderItem: React.FC<OrderItemProps> = ({
@@ -12,6 +13,7 @@ const OrderItem: React.FC<OrderItemProps> = ({
   date,
   price,
   status,
+  onCancel,
 }) => {
   const statusColors: { [key in OrderItemProps['status']]: string } = {
     pending: 'bg-yellow-100 text-yellow-800',
@@ -22,6 +24,12 @@ const OrderItem: React.FC<OrderItemProps> = ({
 
   const getStatusStyle = () =>
     statusColors[status] || 'bg-gray-100 text-gray-800';
+
+  const handleCancel = () => {
+    if (window.confirm('Are you sure you want to cancel this order?')) {
+      onCancel(orderId);
+    }
+  };
 
   return (
     <div className='flex flex-wrap items-center gap-y-4 border-b border-gray-200 py-6 dark:border-gray-700'>
@@ -85,12 +93,12 @@ const OrderItem: React.FC<OrderItemProps> = ({
       <div className='grid w-full gap-4 sm:grid-cols-2 lg:flex lg:w-64 lg:items-center lg:justify-end'>
         {status !== 'done' && (
           <button
-            type='button'
-            // onClick={onCancel}
-            className='w-full rounded-lg border border-red-700 px-3 py-2 text-center text-sm font-medium text-red-700 hover:bg-red-700 hover:text-white focus:outline-none focus:ring-4 focus:ring-red-300 dark:border-red-500 dark:text-red-500 dark:hover:bg-red-600 dark:hover:text-white dark:focus:ring-red-900 lg:w-auto'
-          >
-            Cancel order
-          </button>
+          type='button'
+          onClick={handleCancel} // Tambahkan handler
+          className='w-full rounded-lg border border-red-700 px-3 py-2 text-center text-sm font-medium text-red-700 hover:bg-red-700 hover:text-white focus:outline-none focus:ring-4 focus:ring-red-300 dark:border-red-500 dark:text-red-500 dark:hover:bg-red-600 dark:hover:text-white dark:focus:ring-red-900 lg:w-auto'
+        >
+          Cancel order
+        </button>
         )}
         {status === 'done' && (
           <button
