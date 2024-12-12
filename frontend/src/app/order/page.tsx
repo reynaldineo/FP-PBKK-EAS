@@ -12,21 +12,28 @@ import useGetMyOrderQuery, { IOrder } from './hooks/useGetMyOrderQuery';
 const itemsPerPage = 5;
 
 export default withAuth(OrderPage, 'user');
+
+
 function OrderPage() {
   const { data } = useGetMyOrderQuery();
   const orders = useMemo(() => data?.data.orders || [], [data]);
 
   const [currentPage, setCurrentPage] = useState(1);
   const [currentData, setCurrentData] = useState<IOrder[]>([]);
+  const [allOrders, setAllOrders] = useState<IOrder[]>(orders); // State tambahan
 
   useEffect(() => {
     const startIdx = (currentPage - 1) * itemsPerPage;
     const endIdx = startIdx + itemsPerPage;
-    setCurrentData(orders.slice(startIdx, endIdx));
-  }, [currentPage, orders]);
+    setCurrentData(allOrders.slice(startIdx, endIdx));
+  }, [currentPage, allOrders]);
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
+  };
+
+  const handleCancelOrder = (orderId: string) => {
+    setAllOrders((prev) => prev.filter((order) => order.id !== orderId));
   };
 
   return (
@@ -50,6 +57,7 @@ function OrderPage() {
                     date={'2021-10-10'}
                     price={'$100'}
                     status={order.status}
+                    onCancel={handleCancelOrder} // Kirim callback
                   />
                 ))
               ) : (
