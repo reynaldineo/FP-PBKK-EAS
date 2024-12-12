@@ -14,3 +14,8 @@ For detailed API documentation, please visit the following link:
 ## 🛢 Database Diagram / PDM
 
 ![image](/img/db.png)
+
+## 📺 Video Demo Aplikasi
+
+Link Video Demo:
+https://youtu.be/rof5ylqVOz0
